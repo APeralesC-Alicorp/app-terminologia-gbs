@@ -1,1 +1,1042 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vocabulario GBS – práctica de siglas y términos</title>
+<style>
+:root{
+  /* Paleta Alicorp */
+  --paper:#F2F2F2; --tile:#FFFFFF; --ink:#262626; --muted:#595959; --line:#E1E1E1;
+  --brand:#C80F1E; --brand-ink:#FFFFFF; --brand-soft:#FCE9EA;
+  --ok:#1E5532; --ok-bg:#EAF4E0; --bad:#C80F1E; --bad-bg:#FDECEC; --gold:#C77A0E; --accent:#F59B23;
+  --display:"Bahnschrift","DIN Alternate","DIN 2014","Arial Narrow",sans-serif;
+  --body:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#1A1A1A; --tile:#262626; --ink:#F2F2F2; --muted:#A5A5A5; --line:#3A3A3A;
+    --brand:#E4444C; --brand-ink:#1A1A1A; --brand-soft:#3A2224;
+    --ok:#78B928; --ok-bg:#1F3320; --bad:#E4444C; --bad-bg:#3A2224; --gold:#FAB43C; --accent:#FAB43C;
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+body{border-top:6px solid var(--brand)}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5}
+.wrap{max-width:680px;margin:0 auto;padding:24px 18px 64px}
+h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:.01em;line-height:1.15;margin:0}
+h1{font-size:2.2rem}
+h2{font-size:1.5rem}
+p{margin:0}
+.muted{color:var(--muted)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.btn{border:2px solid var(--brand);background:var(--brand);color:var(--brand-ink);border-radius:10px;padding:10px 18px;font-weight:600}
+.btn.ghost{background:transparent;color:var(--brand)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+
+/* Inicio */
+.hero{padding:8px 0 22px;border-bottom:2px solid var(--line);margin-bottom:22px}
+.hero p{margin-top:8px;max-width:56ch}
+.stats{display:flex;gap:28px;margin-top:18px;flex-wrap:wrap}
+.stat b{font-family:var(--display);font-size:1.7rem;display:block;line-height:1}
+.stat span{color:var(--muted);font-size:.9rem}
+.actions{margin:4px 0 26px}
+.units{display:grid;gap:12px}
+.unit{display:grid;grid-template-columns:1fr auto;gap:6px 14px;align-items:center;background:var(--tile);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-align:left;width:100%}
+.unit:hover{border-color:var(--brand)}
+.unit h3{font-size:1.15rem}
+.unit small{color:var(--muted)}
+.unit .pct{font-family:var(--display);font-size:1.1rem;color:var(--muted)}
+.bar{grid-column:1/-1;height:6px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok);border-radius:6px}
+
+/* Lección */
+.top{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.close{background:none;border:none;font-size:1.6rem;line-height:1;color:var(--muted);padding:4px 8px}
+.progress{flex:1;height:12px;background:var(--line);border-radius:12px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--brand);transition:width .25s}
+.count{font-family:var(--display);color:var(--muted);min-width:3.5em;text-align:right}
+.qtype{color:var(--muted);margin-bottom:10px}
+.sign{background:var(--tile);border:2px solid var(--ink);border-radius:14px;padding:22px 20px;margin-bottom:18px;text-align:center}
+.sign .term{font-family:var(--display);font-weight:700;font-size:clamp(2.4rem,9vw,3.6rem);letter-spacing:.04em;line-height:1.05;word-break:break-word}
+.sign .def{font-size:1.2rem;line-height:1.45}
+.sign .sentence{font-size:1.2rem;line-height:1.5;text-align:left}
+.blank{display:inline-block;min-width:4.5em;border-bottom:3px solid var(--brand);margin:0 2px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--tile);border:2px solid var(--line);border-radius:12px;padding:12px 14px}
+.opt:hover:not(:disabled){border-color:var(--brand)}
+.opt .radio{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--muted);display:grid;place-items:center}
+.opt .key{flex:none;font-family:var(--display);color:var(--muted);font-size:.9rem;width:1.2em}
+.opt.chosen .radio::after{content:"";width:10px;height:10px;border-radius:50%;background:currentColor}
+.opt.right{border-color:var(--ok);background:var(--ok-bg)}
+.opt.right .radio{border-color:var(--ok);color:var(--ok)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt.wrong .radio{border-color:var(--bad);color:var(--bad)}
+.opt:disabled{cursor:default}
+.feedback{margin-top:18px;border-radius:12px;padding:16px 18px;border-left:6px solid}
+.feedback.ok{background:var(--ok-bg);border-color:var(--ok)}
+.feedback.bad{background:var(--bad-bg);border-color:var(--bad)}
+.feedback h3{font-size:1.35rem;margin-bottom:6px}
+.feedback.ok h3{color:var(--ok)}
+.feedback.bad h3{color:var(--bad)}
+.feedback dl{margin:10px 0 0;display:grid;gap:8px}
+.feedback dt{font-weight:600;font-size:.92rem;color:var(--muted)}
+.feedback dd{margin:0}
+.feedback .convo{font-style:italic}
+.speak{background:none;border:1px solid var(--line);border-radius:8px;padding:2px 10px;margin-left:6px;font-size:.9rem;color:var(--ink)}
+.next{margin-top:16px;width:100%;padding:13px}
+
+/* Resultado */
+.result{text-align:center;padding:24px 0}
+.result .score{font-family:var(--display);font-size:4rem;line-height:1;margin:10px 0}
+.missed{margin:22px 0;text-align:left;background:var(--tile);border:1px solid var(--line);border-radius:12px;padding:6px 16px}
+.missed div{padding:10px 0;border-bottom:1px solid var(--line)}
+.missed div:last-child{border-bottom:none}
+.result .row{justify-content:center}
+
+/* Glosario */
+.search{width:100%;font:inherit;color:var(--ink);background:var(--tile);border:2px solid var(--line);border-radius:10px;padding:10px 14px;margin:16px 0}
+.gunit{margin-top:22px}
+.gunit h3{font-size:1.2rem;margin-bottom:6px;color:var(--brand)}
+.gterm{padding:12px 0;border-bottom:1px solid var(--line)}
+.gterm b{font-family:var(--display);font-size:1.15rem}
+.gterm .f{color:var(--muted)}
+.gterm p{margin-top:4px}
+.gterm .simple{margin-top:4px}
+.gterm .convo{font-style:italic;color:var(--muted)}
+footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-size:.88rem;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.linkish{background:none;border:none;color:var(--brand);text-decoration:underline;padding:0}
+/* Nivel */
+.level{display:inline-flex;border:2px solid var(--brand);border-radius:10px;overflow:hidden;margin-top:18px}
+.level button{border:none;background:transparent;color:var(--brand);padding:8px 16px;font-weight:600}
+.level button[aria-pressed="true"]{background:var(--brand);color:var(--brand-ink)}
+/* Escucha */
+.listen{display:flex;flex-direction:column;align-items:center;gap:12px}
+.play{width:88px;height:88px;border-radius:50%;border:none;background:var(--brand);color:var(--brand-ink);font-size:2.2rem;line-height:1}
+.slow{background:none;border:none;color:var(--brand);text-decoration:underline;font-size:.95rem}
+.sign .en-q{font-family:var(--display);font-size:1.6rem;font-weight:600;line-height:1.25}
+.sign .situ{font-size:1.12rem;line-height:1.5;text-align:left}
+.sign .en-tag{display:block;text-align:left;color:var(--muted);font-size:.9rem;margin-bottom:6px}
+.feedback .tr{color:var(--muted);font-size:.95rem;margin-top:2px}
+.feedback .en{font-style:italic}
+.gterm .en{margin-top:4px}
+.gterm .tr{color:var(--muted);font-size:.92rem}
+.foot-actions{display:flex;gap:16px;flex-wrap:wrap}
+.toast{margin-top:10px;color:var(--ok);font-weight:600}
+/* Perfiles, ranking y tiempos */
+.who{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:6px;color:var(--muted);font-size:.95rem}
+.who strong{color:var(--ink)}
+.stats.times{margin-top:14px}
+.stat.xp b{color:var(--gold)}
+.dots{color:var(--ok)}
+.bar i{background:linear-gradient(90deg,var(--ok),#78B928)}
+.stats.times b{font-size:1.25rem}
+.rank{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--brand-soft);border-radius:12px;padding:14px 16px;margin:0 0 26px}
+.rank h3{font-size:1.1rem}
+.rank p{font-size:.92rem;max-width:44ch;margin-top:2px}
+.plist{display:grid;gap:10px}
+.pform{display:grid;gap:12px;max-width:360px;margin-top:12px}
+.pform label{display:grid;gap:4px;font-weight:600;font-size:.95rem}
+.field{font:inherit;color:var(--ink);background:var(--tile);border:2px solid var(--line);border-radius:10px;padding:10px 12px}
+.field:focus-visible{outline:3px solid var(--brand);outline-offset:1px}
+.sent{font-size:.88rem;margin-top:6px;color:var(--muted)}
+.sent strong{color:var(--brand)}
+.nudge{margin:20px auto 0;max-width:460px;background:var(--brand-soft);border-radius:12px;padding:14px 16px;display:grid;gap:10px;justify-items:center}
+.ver{color:var(--muted);font-size:.82rem}
+.opt-tag{font-weight:400;color:var(--muted)}
+.err{color:var(--bad);min-height:1.2em;font-size:.92rem}
+.dots{color:var(--ok);letter-spacing:.12em;font-size:.95rem;white-space:nowrap}
+.tprog{margin-top:6px;font-size:.95rem}
+.warn{margin-top:14px;background:var(--bad-bg);border-left:5px solid var(--bad);border-radius:8px;padding:10px 14px;font-size:.95rem}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="wrap" id="app"></main>
+
+<script>
+/* ---------- Contenido ---------- */
+const UNITS = [
+  {id:"org",  name:"Organización y roles", desc:"Quién es quién en el GBS"},
+  {id:"proc", name:"Procesos de punta a punta", desc:"Los macroprocesos que atiende el GBS"},
+  {id:"met",  name:"Método y mejora continua", desc:"Cómo se documenta y mejora un proceso"},
+  {id:"auto", name:"Automatización e IA", desc:"Bots, agentes y la fábrica de automatización"},
+  {id:"kpi",  name:"Niveles de servicio, métricas y finanzas", desc:"Cómo se mide el servicio y el valor"},
+  {id:"tran", name:"Transición e integraciones", desc:"Cómo un proceso o una empresa entra al GBS"},
+  {id:"gov",  name:"Gobierno y control", desc:"Controles, pruebas y aprobaciones"},
+  {id:"data", name:"Tecnología y datos", desc:"Sistemas, BI y calidad del dato"},
+  {id:"chg",  name:"Gestión del cambio y aprendizaje", desc:"Adopción, capacitación y cultura"}
+];
+
+/* [unidad, término, forma en inglés, significado, contexto en el GBS, ejemplo en conversación] */
+const RAW = [
+["org","GBS","Global Business Services","Centro global de servicios de negocio","Es la evolución del CSC: atiende procesos de finanzas, compras y RRHH para todas las sociedades del grupo.","Ese proceso ya no lo ve corporativo, ahora lo atiende el GBS."],
+["org","CSC","Shared Services Center","Centro de Servicios Compartidos","Nombre anterior del GBS. Se sigue escuchando mucho en el día a día.","Antes esto lo hacía el CSC, con el GBS cambia el modelo."],
+["org","CoE","Center of Excellence","Centro de excelencia","Equipo especialista que define buenas prácticas y apoya a las demás áreas.","Pregúntale al CoE si ya tienen un estándar para esto."],
+["org","BEX","Business Excellence","Área de transformación del GBS","Departamento de seis torres que mejora, automatiza y mide los procesos del GBS.","Esa iniciativa tiene que entrar por BEX para que la prioricen."],
+["org","GPO","Global Process Owner","Dueño global del proceso","Decide el estándar de un proceso de punta a punta y certifica su madurez. En el plan también aparece como GBS PO.","Sin la firma del GPO no podemos cambiar el SOP."],
+["org","BRM","Business Relationship Manager","Gestor de relación con el negocio","Es el nexo entre el GBS y cada vicepresidencia o unidad de negocio.","Escalemos el tema al BRM para que lo converse con la vicepresidencia."],
+["org","SME","Subject Matter Expert","Experto en la materia","La persona que conoce a fondo cómo se hace un proceso; suele dar el KT.","Necesitamos un SME de cuentas por pagar para el levantamiento."],
+["org","FTE","Full Time Equivalent","Equivalente a tiempo completo","Unidad para medir esfuerzo y ahorros: 1 FTE es una persona a jornada completa.","Esa automatización libera como medio FTE al mes."],
+["org","HC","Headcount","Número de personas","Cantidad de colaboradores en planilla de un equipo o área.","Revisa el HC del equipo antes de armar los turnos de cierre."],
+["org","PMO","Project Management Office","Oficina de gestión de proyectos","Lleva el portafolio, los comités y el seguimiento de las iniciativas.","Manda el avance a la PMO antes del comité del jueves."],
+["org","IMO","Integration Management Office","Oficina de gestión de integraciones","Coordina las adquisiciones desde la compra hasta su integración.","La IMO todavía no confirma la fecha de toma de control de la empresa comprada."],
+["org","HRBP","Human Resources Business Partner","Socio de RRHH para el área","La persona de RRHH asignada a tu gerencia; ve movilidad, reemplazos y clima.","Coordina con el HRBP lo de los reemplazos del equipo."],
+["org","Steering","Steering Committee","Comité directivo","Foro de líderes que revisa el avance y decide los temas en rojo.","Eso no lo resolvemos acá, hay que llevarlo al Steering."],
+["org","Champion","Change Champion","Embajador del cambio","Colaborador que impulsa la adopción del nuevo modelo dentro de su equipo.","Que el champion de tu torre ayude a explicar el nuevo flujo."],
+["org","Tier","Tier","Nivel de escalamiento","Define a quién se escala un problema: analista, team lead, líder de torre y luego BRM.","Si en Tier 1 no se resuelve, pasa a Tier 2 con el team lead."],
+
+["proc","OTC","Order to Cash","Del pedido al cobro","Va desde el pedido del cliente, crédito y facturación hasta cobrar. También se escribe O2C.","El problema de la cobranza está en OTC, no en tesorería."],
+["proc","P2P","Procure to Pay","De la compra al pago","Desde la requisición y la orden de compra hasta pagar al proveedor.","Las facturas sin orden de compra frenan todo P2P."],
+["proc","R2R","Record to Report","Del registro al reporte","Contabilidad, cierre mensual, consolidación y reportes financieros. También se escribe RTR.","En cierre, R2R necesita los asientos antes del día tres."],
+["proc","H2R","Hire to Retire","De la contratación al retiro","Ciclo del colaborador: ingreso, nómina, administración de personal y salida. También HTR.","La nómina es parte de H2R, conversa con esa torre."],
+["proc","S&OP","Sales and Operations Planning","Planificación de ventas y operaciones","Proceso que alinea la demanda con producción y abastecimiento.","Ese dato lo usa S&OP para planificar la producción del mes."],
+["proc","E2E","End to End","De punta a punta","Mirar el proceso completo, desde que empieza hasta que termina, sin cortarlo por áreas.","Hay que mirar el flujo E2E, no solo nuestra parte."],
+["proc","AS-IS","As is","Situación actual","Cómo funciona el proceso hoy, antes de mejorarlo.","Primero levantemos el AS-IS y después proponemos mejoras."],
+["proc","TO BE","To be","Situación futura","Cómo debería funcionar el proceso después del cambio.","En el TO BE ese paso de aprobación ya no existe."],
+
+["met","eESOARA","","Eliminar, Simplificar y estandarizar, Optimizar, Automatizar, Robotizar, Agentizar","Es la metodología oficial del GBS. Regla de oro: nada se automatiza sin madurez de nivel 3 o más.","Antes de pedir un bot, pasa el proceso por eESOARA."],
+["met","SOP","Standard Operating Procedure","Procedimiento operativo estándar","El documento oficial de cómo se hace un proceso, único para todas las sociedades.","Actualiza el SOP antes de capacitar al equipo."],
+["met","BPM","Business Process Model","Modelo del proceso de negocio","Diagrama oficial del proceso guardado en Signavio. En otros contextos BPM es Business Process Management.","Si cambia la política, primero se ajusta el BPM."],
+["met","PDD","Process Design Document","Documento de diseño del proceso","Detalla paso a paso el proceso a automatizar; el proveedor construye el bot sobre este documento.","Sin un PDD a detalle el vendor no puede estimar el bot."],
+["met","SDD","Solution Design Document","Documento de diseño de la solución","Explica cómo se construirá técnicamente la automatización; lo aprueba el arquitecto.","El arquitecto tiene que aprobar el SDD antes del desarrollo."],
+["met","BRD","Business Requirements Document","Documento de requerimientos de negocio","Recoge qué necesita el negocio antes de diseñar una solución.","Mándame el BRD y con eso arranco el modelo de datos."],
+["met","VSM","Value Stream Mapping","Mapa del flujo de valor","Técnica Lean para ver dónde se pierde tiempo entre un paso y otro.","En el VSM salió que la aprobación demora tres días."],
+["met","DMAIC","Define, Measure, Analyze, Improve, Control","Ciclo de mejora de Lean Six Sigma","Método estructurado para resolver problemas con datos: definir, medir, analizar, mejorar y controlar.","Armemos un DMAIC para bajar el reproceso de facturas."],
+["met","Kaizen","Kaizen","Mejora continua en pasos pequeños","Palabra japonesa. Son sesiones cortas donde el equipo propone y aplica mejoras.","Este jueves hacemos kaizen para revisar el cuello de botella."],
+["met","Green Belt","Lean Six Sigma Green Belt","Certificación intermedia de Lean Six Sigma","Suelen ser team leads que lideran proyectos de mejora. Yellow Belt es el nivel básico y Black Belt el experto.","El Green Belt de la torre va a facilitar el proyecto de mejora."],
+["met","Gap analysis","Gap analysis","Análisis de brechas","Comparar el estado actual con el deseado para ver qué falta.","El gap analysis mostró que faltan dos controles."],
+["met","Lift and shift","Lift and shift","Mover tal cual","Migrar un proceso sin rediseñarlo. El GBS lo evita porque traslada el desorden.","No hagamos lift and shift, limpiemos el proceso antes de moverlo."],
+["met","Process mining","Process mining","Minería de procesos","Reconstruye cómo se hace realmente un proceso a partir de los logs del sistema.","Con process mining vimos que hay cinco variantes del mismo flujo."],
+["met","Playbook","Playbook","Manual paso a paso","Guía de cómo ejecutar algo repetible, por ejemplo una integración.","Sigue el playbook, ahí están todos los entregables por fase."],
+["met","Runbook","Runbook","Manual de operación","Instrucciones para operar un sistema o bot y resolver sus incidentes.","Si el bot se cae, revisa el runbook antes de escalar."],
+["met","Huddle","Huddle","Reunión corta diaria","Reunión de 10 a 15 minutos para revisar la carga y los pendientes del día.","En el huddle de mañana vemos la carga del cierre."],
+["met","Workaround","Workaround","Solución provisional","Atajo fuera del estándar para salir del paso. El GBS busca eliminarlos.","Ese Excel paralelo es un workaround, hay que eliminarlo."],
+
+["auto","RPA","Robotic Process Automation","Automatización robótica de procesos","Bots que imitan las acciones de una persona en el sistema: clics, copiar y pegar, descargar reportes.","Ese registro repetitivo es candidato a RPA."],
+["auto","Hyperautomation","Hyperautomation","Hiperautomatización","Combinar RPA, IA, workflows y agentes para automatizar de punta a punta. Es una de las torres de BEX.","La torre de Hyperautomation evalúa si conviene bot o workflow."],
+["auto","Bot","Software robot","Robot de software","Programa que ejecuta tareas repetitivas de forma automática.","El bot corre a las 6 de la mañana y deja el reporte listo."],
+["auto","GenAI","Generative AI","IA generativa","IA que crea texto, resúmenes o código a partir de instrucciones.","Podríamos usar GenAI para resumir los correos de proveedores."],
+["auto","AI agent","AI agent","Agente de IA","IA que ejecuta tareas por su cuenta siguiendo reglas. Agentizar es la última letra de eESOARA.","El AI agent detecta la factura observada y la deriva solo."],
+["auto","HITL","Human in the Loop","Humano en el circuito","Punto donde una persona revisa o aprueba lo que hizo la automatización o el agente.","Para pagos grandes dejamos HITL, el analista aprueba."],
+["auto","Touchless","Touchless","Sin intervención humana","Transacción que se procesa de inicio a fin sin que nadie la toque.","La meta es que la factura estándar sea touchless."],
+["auto","Build","Build","Construcción","Fase de desarrollar la solución o el bot.","El build lo hace el socio y nosotros validamos."],
+["auto","Run","Run","Operación","Mantener funcionando la solución en el día a día: monitoreo, soporte y correcciones.","Después del go-live, el run lo asume el equipo interno."],
+["auto","KT","Knowledge Transfer","Transferencia de conocimiento","Pasar el conocimiento de un equipo a otro: del proveedor a Alicorp, o del área de origen al GBS.","Agenda el KT con el proveedor antes de que termine el contrato."],
+["auto","OCR","Optical Character Recognition","Reconocimiento óptico de caracteres","Tecnología que lee texto de imágenes o PDFs escaneados.","Con OCR leemos los datos de las facturas en PDF."],
+["auto","Vendor","Vendor","Proveedor","Empresa externa que da un servicio, por ejemplo la que construye los bots.","Eso lo tiene que cotizar el vendor."],
+["auto","Workflow","Workflow","Flujo de trabajo automatizado","Secuencia de pasos y aprobaciones que el sistema enruta solo.","Pongamos un workflow de aprobación en SAP en vez de correos."],
+
+["kpi","SLA","Service Level Agreement","Acuerdo de nivel de servicio","Lo que el GBS le promete al negocio, por ejemplo registrar una factura en dos días.","Este mes estamos fuera de SLA en registro de facturas."],
+["kpi","OLA","Operational Level Agreement","Acuerdo de nivel operativo","Lo que el negocio u otra área debe cumplir para que el GBS pueda dar su servicio, por ejemplo aprobar a tiempo.","Si no aprueban en 48 horas, están incumpliendo el OLA."],
+["kpi","XLA","Experience Level Agreement","Acuerdo de nivel de experiencia","Mide cómo vive el usuario el servicio, no solo los tiempos.","Cumplimos el SLA pero el XLA salió bajo, el usuario no está contento."],
+["kpi","KPI","Key Performance Indicator","Indicador clave de desempeño","Número que muestra si vamos bien o mal en algo importante.","¿Cuál es el KPI que vamos a mostrar en el comité?"],
+["kpi","DSO","Days Sales Outstanding","Días promedio de cobro","Cuántos días se demora la empresa en cobrar después de vender.","Si aplicamos la cobranza más rápido, baja el DSO."],
+["kpi","CSAT","Customer Satisfaction","Satisfacción del cliente","Encuesta corta después de una atención o transacción.","El CSAT de la mesa de ayuda subió este mes."],
+["kpi","NPS","Net Promoter Score","Índice de recomendación","Pregunta si recomendarías el servicio; resta los detractores a los promotores.","El NPS de los vicepresidentes nos dice cómo ven al GBS."],
+["kpi","eNPS","Employee Net Promoter Score","Índice de recomendación de colaboradores","Pregunta si recomendarías trabajar aquí; mide el clima interno.","Bajó el eNPS después de la migración, hay que revisarlo."],
+["kpi","First time right","First time right","Bien a la primera","Porcentaje de transacciones que salen sin reproceso.","Subir el first time right reduce las devoluciones de facturas."],
+["kpi","Backlog","Backlog","Pendientes acumulados","Cola de trabajo, tickets o mejoras por atender.","Tenemos un backlog grande de solicitudes, hay que priorizar."],
+["kpi","P&L","Profit and Loss","Estado de resultados","Muestra ingresos, costos y utilidad. El ahorro que cuenta es el que se ve aquí.","Si no se ve en el P&L, Controlling no lo reconoce."],
+["kpi","Business case","Business case","Caso de negocio","Justificación económica: cuánto cuesta, cuánto ahorra y en cuánto tiempo se recupera.","Arma el business case antes de pedir presupuesto."],
+["kpi","Baseline","Baseline","Línea base","El punto de partida medido, contra el que se compara la mejora.","Sin baseline no podemos demostrar el ahorro."],
+["kpi","ROI","Return on Investment","Retorno de la inversión","Cuánto se gana por cada sol invertido.","El ROI de ese bot se ve en menos de un año."],
+["kpi","Payback","Payback","Periodo de recuperación","Tiempo en el que el ahorro devuelve lo invertido.","El payback de la automatización es de un año y medio."],
+["kpi","Run-rate","Run-rate","Ritmo anualizado","El ahorro que ya es recurrente, proyectado a un año.","Con esa mejora ya estamos en run-rate desde marzo."],
+["kpi","Cost to serve","Cost to serve","Costo de atender","Cuánto le cuesta al GBS dar un servicio o procesar una transacción.","La meta es bajar el cost to serve por factura."],
+["kpi","Scorecard","Scorecard","Tablero de indicadores con semáforo","Resumen de KPIs en verde, amarillo o rojo para un área o vicepresidencia.","En el scorecard de la vicepresidencia aparecemos en amarillo."],
+
+["tran","M&A","Mergers and Acquisitions","Fusiones y adquisiciones","Compras de otras empresas cuyos procesos luego se integran al GBS. Es el camino no orgánico.","Con cada M&A llegan procesos nuevos al GBS."],
+["tran","DD","Due Diligence","Debida diligencia","Revisión a fondo de una empresa antes de comprarla.","En la DD hay que levantar cuántas personas hacen cada proceso."],
+["tran","Day 1","Day 1","Primer día","Día en que se toma el control de la empresa adquirida. También se escribe D1.","Para el Day 1 los pagos tienen que seguir funcionando sí o sí."],
+["tran","TSA","Transition Service Agreement","Acuerdo de servicios de transición","El vendedor sigue dando ciertos servicios por un tiempo después de la compra.","Mientras dure el TSA, la nómina la sigue pagando el vendedor."],
+["tran","Stage gate","Stage gate","Punto de control de fase","Revisión formal para pasar de una etapa a la siguiente. En el plan van de SG0 a SG4.","No pasamos al cutover sin aprobar el stage gate."],
+["tran","Go/no-go","Go / no-go","Seguir o no seguir","Decisión formal de si se avanza o se detiene.","Mañana es el go/no-go del pase al GBS."],
+["tran","Cutover","Cutover","Corte o pase","Momento en que la operación pasa del equipo o sistema anterior al nuevo.","El cutover es el fin de semana, el viernes nadie registra nada."],
+["tran","Hypercare","Hypercare","Soporte reforzado","Semanas posteriores al arranque con soporte intensivo y seguimiento diario.","Seguimos en hypercare, cualquier error repórtalo al toque."],
+["tran","Go-live","Go-live","Salida en vivo","El arranque en producción de un sistema o proceso.","Después del go-live arrancan dos semanas de soporte."],
+["tran","Readiness","Readiness","Preparación","Qué tan listos estamos para el cambio: personas, accesos, datos y sistemas.","Antes del arranque revisemos el readiness del equipo."],
+["tran","Shadowing","Shadowing","Acompañamiento","Aprender mirando a quien ya hace el proceso.","Esta semana haces shadowing con la analista de origen."],
+["tran","Backfill","Backfill","Reemplazo","Cubrir el puesto de alguien que se mueve a otro rol o proyecto.","Si él se va al proyecto, necesitamos backfill para su puesto."],
+["tran","RAID","Risks, Assumptions, Issues, Dependencies","Registro de riesgos, supuestos, problemas y dependencias","Lista única para gestionar todo lo que puede afectar un proyecto.","Agrega ese riesgo al RAID para que lo vean en el comité."],
+["tran","War room","War room","Sala de crisis","Equipo reunido para resolver rápido en momentos críticos: cierre, nómina o arranque.","En el cierre abrimos war room a las 8."],
+["tran","Wave","Wave","Ola","Grupo de procesos o personas que se migran juntos.","Ese proceso entra en la segunda wave."],
+["tran","Handover","Handover","Entrega formal","Pasar la responsabilidad de algo a otro equipo.","Después de hypercare hacemos el handover a operación."],
+
+["gov","SoD","Segregation of Duties","Segregación de funciones","La misma persona no puede crear y aprobar la misma transacción.","Ese usuario puede crear y liberar pagos, es un conflicto de SoD."],
+["gov","CAB","Change Advisory Board","Comité de cambios de TI","Aprueba los cambios que van a producción.","El pase a producción tiene que pasar por CAB el martes."],
+["gov","ITSM","IT Service Management","Gestión de servicios de TI","Herramientas y procesos de tickets e incidentes, como ServiceNow o Jira.","Registra el incidente en la herramienta ITSM, no por correo."],
+["gov","RACI","Responsible, Accountable, Consulted, Informed","Matriz de responsabilidades","Indica quién ejecuta, quién rinde cuentas, a quién se consulta y a quién se informa.","Armemos el RACI para que quede claro quién aprueba."],
+["gov","UAT","User Acceptance Testing","Pruebas de aceptación de usuario","El usuario valida que la solución funciona antes de pasar a producción.","Los casos de UAT los tiene que firmar el negocio."],
+["gov","QA","Quality Assurance","Aseguramiento de calidad","Revisar que algo cumple el estándar antes de entregarlo.","Pásalo por QA antes de mandarlo al cliente."],
+["gov","PO","Purchase Order","Orden de compra","Documento que autoriza una compra. Ojo: en el plan PO también se usa para Process Owner.","Sin PO no se puede registrar la factura."],
+["gov","Compliance","Compliance","Cumplimiento","Seguir políticas, normas y controles.","Hay que asegurar compliance con la política de pagos."],
+["gov","Audit trail","Audit trail","Rastro de auditoría","Registro de quién hizo qué y cuándo dentro del sistema.","El sistema guarda el audit trail de cada aprobación."],
+
+["data","S/4HANA","SAP S/4HANA","ERP de SAP","El sistema principal de Alicorp. En el plan lo abrevian S4.","El dato sale directo de S/4HANA, no de un Excel."],
+["data","SuccessFactors","SAP SuccessFactors","Sistema de RRHH de SAP","Gestiona personal, talento y datos de colaboradores. En el plan aparece como SF.","Los datos de ingresos de personal salen de SuccessFactors."],
+["data","Signavio","SAP Signavio","Suite de procesos de SAP","Sirve para modelar procesos, guardar los BPM y hacer process mining.","El flujo actualizado ya está publicado en Signavio."],
+["data","BI","Business Intelligence","Inteligencia de negocios","Herramientas para analizar datos y armar dashboards, como Looker, Power BI o Tableau.","Todavía no definen qué herramienta de BI van a usar."],
+["data","Dashboard","Dashboard","Tablero","Pantalla con indicadores visuales para seguir un tema.","Ese indicador ya está en el dashboard del Command Center."],
+["data","Data layer","Data layer","Capa de datos","Base centralizada donde se integran los datos; en el plan está en GCP.","El data layer en GCP alimenta todos los reportes."],
+["data","Golden record","Golden record","Registro maestro único","Versión limpia y única de un dato maestro: cliente, proveedor o material.","Con un golden record de proveedores evitamos pagos dobles."],
+["data","Data lineage","Data lineage","Linaje de datos","Trazabilidad del dato desde su origen hasta el reporte.","Con el data lineage vemos de qué tabla sale ese monto."],
+["data","Semantic layer","Semantic layer","Capa semántica","Define las métricas una sola vez para que todos vean el mismo número.","Si la métrica está en el semantic layer, nadie la calcula distinto."],
+["data","Drill-down","Drill-down","Bajar al detalle","Ir del total al detalle de un indicador.","Haz drill-down por sociedad para ver dónde está el desvío."],
+["data","Wallboard","Wallboard","Pantalla de piso","Pantalla grande con KPIs en vivo para el equipo de operación.","Pongamos el SLA del día en el wallboard."],
+["data","Data literacy","Data literacy","Alfabetización de datos","Capacidad de leer, entender y usar datos para decidir.","Hay que dar data literacy a los team leads."],
+["data","Master data","Master data","Datos maestros","Datos base que usan todos los procesos: clientes, proveedores, materiales, centros de costo.","Si el master data está mal, el reporte miente."],
+["data","Real time","Real time","Tiempo real","Datos actualizados al momento, sin esperar al cierre.","El Command Center quiere ver los SLA en real time."],
+
+["chg","L&D","Learning and Development","Aprendizaje y desarrollo","Área o función de capacitación.","Coordina con L&D el curso del nuevo proceso."],
+["chg","IAM","","Índice de Adopción del Modelo (en este plan)","Mide de 0 a 100 si la gente usa el nuevo modelo: personas, proceso y tecnología. Ojo: en TI, IAM suele ser Identity and Access Management.","Con el IAM debajo de 80 no cerramos hypercare."],
+["chg","Change management","Change management","Gestión del cambio","Preparar a las personas para que adopten un cambio y lo sostengan.","Sin change management el nuevo proceso no se va a usar."],
+["chg","ADKAR","Awareness, Desire, Knowledge, Ability, Reinforcement","Modelo de cambio de Prosci","Etapas que vive una persona: entiende, quiere, sabe, puede y sostiene el cambio.","Según ADKAR, todavía falta que el equipo quiera el cambio."],
+["chg","Impact assessment","Impact assessment","Evaluación de impacto","Analizar a quién y cómo afecta un cambio, rol por rol.","Primero el impact assessment por rol, después el plan de comunicación."],
+["chg","Stakeholder","Stakeholder","Parte interesada","Persona o área afectada por el proyecto o con interés en él.","Mapeemos a cada stakeholder antes de presentar."],
+["chg","Sponsor","Sponsor","Patrocinador","Líder que respalda el cambio y da el mensaje principal.","El vicepresidente es el sponsor, él tiene que comunicarlo."],
+["chg","Onboarding","Onboarding","Inducción","Proceso de integración de una persona nueva al equipo.","Agrega el SOP al onboarding de los nuevos analistas."],
+["chg","CI","Continuous Improvement","Mejora continua","Cultura de mejorar siempre. Ojo: en Riesgos, CI también significa Control Interno.","Esa idea entra al pipeline de CI."],
+["chg","Upskilling","Upskilling","Mejora de habilidades","Capacitar a las personas para tareas nuevas, por ejemplo pasar de operar a analizar.","Con la automatización vamos a hacer upskilling del equipo."],
+["chg","Feedback","Feedback","Retroalimentación","Comentarios para mejorar algo o el desempeño de alguien.","Dale feedback al vendor sobre el PDD."]
+];
+
+const TERMS = RAW.map(r => ({u:r[0], t:r[1], f:r[2], m:r[3], c:r[4], e:r[5]}));
+
+/* Términos que se parecen demasiado para usarse como distractores en "completa la frase" */
+const SIMILAR = [["NPS","eNPS","CSAT"],["Build","Run"],["Dashboard","Wallboard","Scorecard"],["Go-live","Cutover"],
+  ["SLA","OLA","XLA"],["QA","UAT"],["S/4HANA","SuccessFactors","Signavio"],["PMO","IMO"],["BRM","HRBP","Steering","GPO"],
+  ["Payback","ROI","Run-rate"],["Playbook","Runbook"],["Bot","RPA","AI agent","Workflow","GenAI"],["Kaizen","DMAIC","Huddle"],
+  ["Gap analysis","VSM","Process mining"],["SOP","BPM","PDD","SDD","BRD"],["Baseline","Business case"],["Readiness","Hypercare","Handover"],
+  ["Stage gate","Go/no-go"],["Sponsor","Champion","Stakeholder"],["Change management","L&D","Upskilling","Onboarding"],
+  ["CSC","GBS","CoE","BEX"],["Data layer","Semantic layer","Dashboard","BI"],["Golden record","Master data"],["KPI","Scorecard"],
+  ["Shadowing","KT"],["Vendor","Build"]];
+const isSimilar = (a,b) => SIMILAR.some(g => g.includes(a.t) && g.includes(b.t));
+
+
+/* Situaciones del día a día: ¿qué término aplica? */
+const SITU = {
+"GPO":"Hay que decidir qué variante del proceso será el estándar para todas las sociedades. ¿Quién tiene la última palabra?",
+"SME":"Para levantar el proceso necesitas a la persona que lo hace todos los días y conoce sus excepciones. ¿Cómo se le llama?",
+"FTE":"Quieres decir que una automatización ahorra el trabajo de una persona a jornada completa. ¿Qué unidad usas?",
+"BRM":"Una vicepresidencia está molesta con el servicio del GBS y no sabe con quién hablar. ¿Qué rol es su contacto?",
+"Steering":"Un tema lleva dos meses en rojo y los equipos no logran resolverlo. ¿A qué foro se lleva?",
+"Champion":"En cada equipo hay una persona que ayuda a sus compañeros a adoptar el nuevo modelo. ¿Cómo se le llama?",
+"E2E":"Tu jefe te pide revisar el proceso desde el pedido del cliente hasta el cobro, sin cortarlo por áreas. ¿Cómo se dice?",
+"OTC":"Las facturas a clientes salen bien, pero la cobranza se demora. ¿En qué macroproceso está el problema?",
+"P2P":"Un proveedor reclama que no le pagan porque su factura no tiene orden de compra. ¿Qué macroproceso es?",
+"R2R":"El cierre contable mensual se está retrasando. ¿Qué macroproceso lo cubre?",
+"H2R":"Hay un error en la nómina de un colaborador nuevo. ¿Qué macroproceso lo atiende?",
+"AS-IS":"Antes de proponer mejoras, documentas cómo se hace el proceso hoy. ¿Cómo se llama ese estado?",
+"SOP":"Un analista nuevo pregunta dónde está el procedimiento oficial paso a paso del proceso. ¿Qué documento le pasas?",
+"PDD":"El proveedor de bots pide el detalle exacto, clic por clic, del proceso a automatizar. ¿Qué documento necesita?",
+"Lift and shift":"Proponen mover un proceso al GBS tal como está, con todos sus Excel paralelos. ¿Cómo se llama eso?",
+"Process mining":"Quieres saber cómo se ejecuta realmente un proceso usando los logs de SAP. ¿Qué técnica usas?",
+"Workaround":"Un analista usa un Excel paralelo porque el sistema no le deja hacer algo. ¿Qué es ese Excel?",
+"Kaizen":"El equipo se reúne una hora a la semana para proponer y aplicar mejoras pequeñas. ¿Cómo se llama?",
+"RPA":"Una tarea consiste en copiar datos de un correo a SAP cientos de veces al día. ¿Qué tecnología encaja?",
+"HITL":"El agente de IA prepara pagos, pero los montos grandes los tiene que aprobar una persona. ¿Cómo se llama ese punto?",
+"Touchless":"Una factura entra, se valida, se registra y se paga sin que nadie la toque. ¿Cómo se describe?",
+"KT":"El proveedor termina su contrato y tiene que enseñar al equipo interno a mantener los bots. ¿Qué actividad es?",
+"SLA":"El GBS se compromete a registrar las facturas en dos días. ¿Qué es ese compromiso?",
+"OLA":"El GBS no llega a tiempo porque el área de negocio demora en aprobar. ¿Qué acuerdo está incumpliendo el negocio?",
+"XLA":"El servicio cumple los tiempos, pero los usuarios están molestos con la experiencia. ¿Qué indicador está bajo?",
+"DSO":"Finanzas quiere saber cuántos días se demora la empresa en cobrar a sus clientes. ¿Qué indicador mira?",
+"First time right":"Quieres medir qué porcentaje de facturas se registran sin reproceso. ¿Qué indicador es?",
+"P&L":"Controlling dice que un ahorro solo cuenta si se ve en el estado de resultados. ¿Cómo se le dice en inglés?",
+"Baseline":"Para demostrar una mejora, primero necesitas medir cómo estaba el proceso antes. ¿Qué te falta?",
+"Business case":"Quieres pedir presupuesto para un bot y te piden la justificación económica. ¿Qué armas?",
+"Payback":"Gerencia pregunta en cuánto tiempo el ahorro recupera lo invertido. ¿Qué te están preguntando?",
+"Backlog":"Hay cientos de solicitudes acumuladas pendientes de atender. ¿Cómo se llama esa cola?",
+"TSA":"Después de comprar una empresa, el vendedor sigue pagando la nómina por unos meses. ¿Qué acuerdo lo permite?",
+"Day 1":"Es el día en que Alicorp toma el control de la empresa adquirida. ¿Cómo se le dice?",
+"DD":"Antes de comprar una empresa, se revisan a fondo sus finanzas, procesos y personas. ¿Qué etapa es?",
+"Cutover":"Este fin de semana la operación pasa del equipo anterior al GBS. ¿Qué momento es?",
+"Hypercare":"Las semanas posteriores al arranque tienen soporte intensivo y seguimiento diario. ¿Cómo se llama ese periodo?",
+"Go/no-go":"Mañana el comité decide si se avanza con la migración o se posterga. ¿Qué decisión es?",
+"Backfill":"Una analista se va a un proyecto y alguien tiene que cubrir su puesto. ¿Qué necesitas?",
+"Shadowing":"Para aprender un proceso, te sientas al lado de quien lo hace y lo observas. ¿Cómo se llama?",
+"RAID":"Quieres un solo lugar para registrar riesgos, supuestos, problemas y dependencias. ¿Qué usas?",
+"War room":"Es cierre de mes y el equipo se junta en una sala para resolver incidentes al momento. ¿Cómo se llama?",
+"SoD":"Auditoría encuentra que un usuario puede crear y aprobar el mismo pago. ¿Qué principio se rompe?",
+"CAB":"Tienes un cambio listo para producción y TI te dice que antes debe aprobarlo un comité. ¿Qué comité es?",
+"UAT":"El negocio debe probar y firmar que la solución funciona antes de pasar a producción. ¿Qué etapa es?",
+"RACI":"Nadie sabe quién aprueba y quién solo debe estar informado en un proceso. ¿Qué herramienta lo aclara?",
+"PO":"No puedes registrar una factura porque falta el documento que autorizó la compra. ¿Qué falta?",
+"Golden record":"El mismo proveedor está registrado tres veces con nombres distintos. ¿Qué te falta?",
+"Data lineage":"Te preguntan de qué tabla y de qué transformación sale un monto del reporte. ¿Qué concepto lo responde?",
+"Semantic layer":"Dos áreas calculan el mismo KPI y les sale distinto. ¿Qué capa evita eso?",
+"Drill-down":"El total de un indicador está en rojo y quieres ver qué sociedad lo causa. ¿Qué haces?",
+"Master data":"Los reportes fallan porque los datos de clientes y materiales están mal cargados. ¿Qué datos hay que corregir?",
+"IAM":"Quieres medir de 0 a 100 si la gente realmente usa el nuevo modelo del GBS. ¿Qué índice usas?",
+"Sponsor":"Un cambio necesita que un líder lo respalde y dé el mensaje al equipo. ¿Qué rol cumple ese líder?",
+"Impact assessment":"Antes de comunicar un cambio, analizas cómo afecta a cada rol. ¿Qué actividad es?",
+"Upskilling":"Con la automatización, los analistas deben aprender a analizar en vez de digitar. ¿Cómo se llama esa capacitación?"
+};
+
+/* Explicación en palabras simples (general, para cualquiera) */
+const SIMPLE = {
+"GBS":"Un centro de servicios interno: en vez de que cada empresa del grupo haga por su cuenta la contabilidad, las compras o las planillas, un solo equipo lo hace para todas.",
+"CSC":"Lo mismo que el GBS con su nombre antiguo: un equipo central que atiende tareas repetitivas de varias empresas del grupo.",
+"CoE":"Un grupo de expertos en un tema que define cómo hacer las cosas bien y ayuda a los demás equipos a aplicarlo.",
+"BEX":"El área encargada de que los procesos funcionen cada vez mejor: los ordena, los automatiza y mide sus resultados.",
+"GPO":"El “dueño” de un proceso: quien decide cómo debe hacerse y responde por él de principio a fin.",
+"BRM":"Como un ejecutivo de cuenta del GBS: escucha al área de negocio, entiende lo que necesita y cuida la relación.",
+"SME":"La persona que más sabe de un tema porque lo hace todos los días; a ella se le pregunta cuando hay dudas.",
+"FTE":"Una forma de contar trabajo: 1 FTE es una persona a tiempo completo; medio FTE, media jornada.",
+"HC":"Simplemente cuántas personas hay en un equipo, contadas una por una.",
+"PMO":"El equipo que ordena los proyectos: lleva el calendario, el avance, los riesgos y organiza los comités.",
+"IMO":"Como una PMO, pero dedicada a integrar una empresa recién comprada.",
+"HRBP":"Tu contacto de Recursos Humanos: la persona de RRHH que conoce tu área y te ayuda con temas de personal.",
+"Steering":"La reunión de jefes que toma las decisiones importantes de un proyecto cuando el equipo no puede resolverlas solo.",
+"Champion":"Un compañero que ya entendió el cambio y ayuda a los demás de su equipo a adoptarlo.",
+"Tier":"Un escalón de soporte: si el primer nivel no resuelve el problema, sube al siguiente.",
+"OTC":"Todo el camino del dinero que entra: el cliente pide, se le factura y se le cobra.",
+"P2P":"Todo el camino del dinero que sale: se pide comprar algo, se compra, llega la factura y se le paga al proveedor.",
+"R2R":"Registrar todo lo que pasa en la contabilidad y convertirlo cada mes en reportes financieros confiables.",
+"H2R":"Todo lo que vive un trabajador en la empresa: desde que lo contratan, sus pagos y cambios, hasta que se va.",
+"S&OP":"Ponerse de acuerdo entre ventas y producción sobre cuánto se va a vender y cuánto hay que fabricar.",
+"E2E":"Como seguir un pedido de delivery desde que lo pides hasta que llega a tu puerta: no basta con que la cocina funcione si el repartidor se pierde.",
+"AS-IS":"La foto de cómo se hacen las cosas hoy, con sus problemas incluidos.",
+"TO BE":"El dibujo de cómo queremos que se hagan las cosas después de mejorarlas.",
+"eESOARA":"Una escalera de mejora: primero eliminar lo que sobra, luego ordenar y optimizar, y recién al final poner tecnología.",
+"SOP":"El manual oficial paso a paso de una tarea, para que todos la hagan igual.",
+"BPM":"El diagrama de un proceso: cajitas y flechas que muestran qué pasa y en qué orden.",
+"PDD":"El documento que explica un proceso con tanto detalle que se podría programar un robot para hacerlo.",
+"SDD":"El “plano” técnico: explica cómo se va a construir la solución.",
+"BRD":"La lista de lo que el negocio necesita y espera de una solución, escrita antes de construirla.",
+"VSM":"Un mapa que muestra cada paso de un proceso y cuánto tiempo se pierde entre uno y otro.",
+"DMAIC":"Como ir al médico: primero se dice qué duele, se toman exámenes, se busca la causa, se aplica el tratamiento y luego hay controles para que no vuelva.",
+"Kaizen":"La idea de mejorar un poquito todos los días, con pequeños cambios que propone el mismo equipo.",
+"Green Belt":"Un nivel de certificación en mejora de procesos; como los cinturones de las artes marciales: amarillo, verde y negro.",
+"Gap analysis":"Como planear un viaje: sabes dónde estás y a dónde quieres ir; el análisis de brechas es la lista de lo que te falta para llegar.",
+"Lift and shift":"Mudar algo tal cual está, sin arreglarlo antes; como mudarte llevando también los cachivaches.",
+"Process mining":"Usar los registros del sistema para ver cómo se hace un proceso en la realidad, no cómo dice el manual.",
+"Playbook":"Una guía práctica con los pasos a seguir en una situación que se repite, como el libro de jugadas de un equipo.",
+"Runbook":"El manual de emergencia de un sistema: qué hacer cuando algo falla.",
+"Huddle":"Una reunión rápida, casi siempre de pie, para alinearse al empezar el día.",
+"Workaround":"Un parche o atajo para salir del paso cuando algo no funciona como debería.",
+"RPA":"Un robot de software que repite clics y tecleos en el sistema, como lo haría una persona.",
+"Hyperautomation":"Juntar varias herramientas (robots, IA, flujos) para automatizar un proceso completo, no solo una tarea suelta.",
+"Bot":"Como un ayudante incansable que hace la misma tarea mil veces sin cansarse ni equivocarse, pero solo lo que se le programó.",
+"GenAI":"Inteligencia artificial que crea contenido nuevo: textos, resúmenes, imágenes o código.",
+"AI agent":"Una IA que no solo responde preguntas, sino que toma acciones por su cuenta para cumplir una tarea.",
+"HITL":"Un punto del proceso automático donde una persona revisa y aprueba antes de seguir.",
+"Touchless":"Como pagar el peaje con tag: el carro pasa y el cobro se hace solo, sin que nadie tenga que detenerse.",
+"Build":"Como la etapa de construir una casa: planos aprobados, obreros trabajando, hasta que se entregan las llaves.",
+"Run":"Como vivir en la casa ya construida: mantenerla limpia, arreglar lo que se malogra y que todo siga funcionando.",
+"KT":"Enseñarle a otra persona o equipo lo que sabes, para que pueda hacer el trabajo sin ti.",
+"OCR":"Como cuando tomas foto a un documento con el celular y puedes copiar el texto: la máquina reconoce las letras de la imagen.",
+"Vendor":"Una empresa externa que nos vende un producto o un servicio.",
+"Workflow":"Como la ruta de un trámite que pasa de escritorio en escritorio, pero sin papeles: el sistema avisa al siguiente cuando le toca.",
+"SLA":"Una promesa medible de servicio: qué se entrega y en cuánto tiempo.",
+"OLA":"Lo que otra área se compromete a hacer para que nosotros podamos cumplir nuestra promesa.",
+"XLA":"Puedes llegar a tiempo al restaurante y que igual te atiendan mal: el XLA mide si la experiencia fue buena, no solo la puntualidad.",
+"KPI":"Como el tablero del carro: velocidad, gasolina y temperatura te dicen de un vistazo si vas bien o si hay que parar.",
+"DSO":"Mide qué tan rápido entra la plata: si el DSO baja, cobramos más rápido y la empresa tiene más caja para operar.",
+"CSAT":"Como las caritas feliz, neutral o triste que ves al salir del aeropuerto o de un banco para calificar la atención.",
+"NPS":"Mide si los clientes recomendarían nuestro servicio a otras personas.",
+"eNPS":"Lo mismo que el NPS, pero preguntando a los trabajadores si recomendarían trabajar aquí.",
+"First time right":"Hacer algo bien desde la primera vez, sin tener que corregirlo después.",
+"Backlog":"La pila de trabajo pendiente que todavía nadie ha atendido.",
+"P&L":"El estado de resultados: cuánto se ganó, cuánto se gastó y cuánto quedó.",
+"Business case":"El argumento con números para convencer de que algo vale la pena: cuánto cuesta y cuánto ahorra.",
+"Baseline":"Como pesarte antes de empezar una dieta: sin ese primer número no puedes saber cuánto bajaste.",
+"ROI":"Si inviertes 100 soles y ganas 150, recuperaste lo tuyo y ganaste 50: tu ROI es 50 %.",
+"Payback":"En cuánto tiempo recuperas lo que invertiste.",
+"Run-rate":"Cuánto representaría un ahorro o ingreso en un año completo si sigue al mismo ritmo.",
+"Cost to serve":"Como calcular cuánto te cuesta realmente cada menú que vendes, sumando ingredientes, gas y el tiempo del cocinero.",
+"Scorecard":"Como la libreta de notas del colegio: un resumen rápido por curso que muestra dónde vas bien y dónde estás jalado.",
+"M&A":"Comprar otras empresas o fusionarse con ellas.",
+"DD":"Como revisar a fondo un carro usado antes de comprarlo: papeles, motor y choques, para que no te vendan gato por liebre.",
+"Day 1":"El primer día en que la empresa comprada pasa a ser nuestra.",
+"TSA":"Como cuando compras una casa y el dueño anterior te deja usar su conexión de internet unos meses mientras instalas la tuya.",
+"Stage gate":"Un control entre etapas: si no se cumple lo pedido, no se pasa a la siguiente.",
+"Go/no-go":"Como el semáforo antes de despegar un avión: todos revisan su parte y recién con luz verde se avanza.",
+"Cutover":"El momento exacto en que se deja lo antiguo y se empieza a usar lo nuevo.",
+"Hypercare":"Un periodo de soporte extra y muy atento justo después de un cambio importante.",
+"Go-live":"El día en que algo nuevo empieza a funcionar en vivo para todos.",
+"Readiness":"Como revisar la mochila antes de un viaje: pasaporte, pasajes y maleta listos; si falta algo, mejor no salir todavía.",
+"Shadowing":"Como cuando un practicante acompaña a un doctor en sus consultas para aprender viendo cómo lo hace.",
+"Backfill":"Como el jugador suplente que entra cuando un titular sale de la cancha, para que el equipo no se quede con uno menos.",
+"RAID":"Como la lista de pendientes y alertas de un matrimonio: qué puede salir mal, qué estamos asumiendo, qué ya se complicó y de quién dependemos.",
+"War room":"Como el equipo de bomberos reunido frente a un incendio: todos en un solo lugar, decidiendo rápido hasta que se apague.",
+"Wave":"Una tanda de cosas que se migran o lanzan al mismo tiempo.",
+"Handover":"Como el cambio de turno en un hospital: la enfermera que sale le explica a la que entra cómo está cada paciente.",
+"SoD":"Como en un banco: quien cuenta la plata no es el mismo que la aprueba, así un error o una trampa se detecta a tiempo.",
+"CAB":"Como pedir permiso al administrador del edificio antes de hacer una obra en tu departamento: revisan que no afecte a los vecinos.",
+"ITSM":"La forma ordenada de gestionar los servicios y problemas de TI, normalmente con tickets.",
+"RACI":"En un almuerzo familiar: uno cocina (responsable), la mamá decide el menú (aprueba), se le pregunta a la abuela la receta (consultada) y se avisa al resto la hora (informados).",
+"UAT":"Como probarte la ropa antes de comprarla: la tienda dice que es tu talla, pero tú confirmas que te queda bien.",
+"QA":"Como el control de calidad de una fábrica: alguien revisa el producto antes de que llegue al cliente.",
+"PO":"La orden de compra: el documento que autoriza comprar algo.",
+"Compliance":"Como respetar las reglas de tránsito: no basta con llegar, hay que llegar sin cometer infracciones.",
+"Audit trail":"Como las cámaras y el registro de visitas de un edificio: queda constancia de quién entró, a qué hora y qué hizo.",
+"S/4HANA":"El sistema principal (ERP) donde se registran ventas, compras, contabilidad y mucho más.",
+"SuccessFactors":"El sistema de SAP para todo lo relacionado con el personal.",
+"Signavio":"Una herramienta para dibujar y analizar procesos.",
+"BI":"Herramientas para convertir datos en gráficos y reportes que ayudan a decidir.",
+"Dashboard":"Como el tablero de un carro o la app del banco: en una sola pantalla ves lo importante sin leer reportes largos.",
+"Data layer":"El lugar central donde se juntan y ordenan los datos, para que todos los reportes usen la misma fuente.",
+"Golden record":"La versión única y correcta de un dato, por ejemplo la ficha oficial de un proveedor.",
+"Data lineage":"Como la trazabilidad de un producto en el súper: puedes saber de qué chacra vino, por qué planta pasó y cuándo llegó a la tienda.",
+"Semantic layer":"Como un diccionario oficial de la empresa: “venta” significa lo mismo para todos, así nadie calcula su propia versión del número.",
+"Drill-down":"Hacer clic en un total para ver el detalle que lo compone.",
+"Wallboard":"Como las pantallas de un aeropuerto con los vuelos: todos ven al mismo tiempo cómo va la operación.",
+"Data literacy":"Como saber leer un recibo de luz: entender los números para darte cuenta si algo está raro y decidir qué hacer.",
+"Master data":"Como la agenda de contactos del celular: si un número está mal guardado, todas las llamadas a esa persona fallan.",
+"Real time":"Al instante, en el mismo momento en que ocurre.",
+"L&D":"El área que se encarga de capacitar y desarrollar a las personas.",
+"IAM":"Un puntaje de 0 a 100 que dice qué tanto la gente usa de verdad el nuevo modelo de trabajo.",
+"Change management":"Como ayudar a tus papás a pasarse a un celular nuevo: no basta con entregárselo, hay que explicarles, acompañarlos y tenerles paciencia.",
+"ADKAR":"Los 5 pasos que vive una persona ante un cambio: saber por qué, quererlo, saber cómo, poder hacerlo y mantenerlo.",
+"Impact assessment":"Antes de cambiar el horario de la casa, pensar a quién le afecta: al que estudia, al que trabaja temprano y al que cocina.",
+"Stakeholder":"Cualquier persona o área a la que le importa o le afecta un proyecto.",
+"Sponsor":"El líder que respalda y promueve un proyecto o un cambio.",
+"Onboarding":"La bienvenida e inducción de alguien nuevo, para que se integre rápido.",
+"CI":"Mejora continua: la costumbre de buscar siempre cómo hacer las cosas un poco mejor.",
+"Upskilling":"Aprender nuevas habilidades para crecer en tu trabajo o asumir tareas nuevas.",
+"Feedback":"Comentarios sobre lo que hiciste, para que puedas mejorar."
+};
+
+/* Nivel básico: los términos que más se escuchan en el día a día */
+const BASIC = new Set(["GBS","CSC","FTE","HC","SME","GPO","PMO","Steering","Tier","OTC","P2P","R2R","H2R","E2E","AS-IS","TO BE",
+  "eESOARA","SOP","PDD","Kaizen","Gap analysis","Workaround","Playbook","RPA","Bot","GenAI","HITL","KT","Vendor","Workflow",
+  "SLA","KPI","Backlog","P&L","Business case","Baseline","ROI","M&A","Go-live","Cutover","Hypercare","Go/no-go","Wave","Handover",
+  "UAT","QA","PO","Compliance","S/4HANA","BI","Dashboard","Master data","Real time","L&D","Change management","Stakeholder",
+  "Sponsor","Onboarding","Feedback"]);
+TERMS.forEach(x => { x.en = null; x.p = SIMPLE[x.t] || ""; x.s = SITU[x.t] || null; x.basic = BASIC.has(x.t); });
+const levelTerms = () => S.level === "full" ? TERMS : TERMS.filter(x => x.basic);
+
+/* ---------- Progreso (se guarda en este navegador) ---------- */
+/* Configuración del ranking (Microsoft Forms con link prellenado).
+   Si se crea otro formulario, reemplazar FORM_URL y los IDs de cada pregunta. */
+const RANKING = {
+  FORM_URL: "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=bWEWO3TxekmhrpANhRBplqWQW0rrN35Cg9NEUy_swMVURVVaTDFSMlczV0hVM1ZYNU5YOFRITDYwWS4u",
+  Q_XP: "r949481cc0c77402498f2822abf441ac1",
+  Q_DOMINADOS: "r562f731c455d4dd780826dce51c37a55",
+  Q_RACHA: "r6809629f8a034faaa8894307ce2fd60d",
+  Q_MINUTOS: "r0a7af2979e3a42138a0dd78866fc272c",
+  Q_XP_SEMANA: "rcd3f421388fc4f6a8e7cf20879f871dd",   // ID de la pregunta "XP semanal" del Forms; vacío = no se envía
+  SALT: "gbs-vocab-2026"
+};
+
+/* Perfiles: cada perfil guarda su propio avance en este navegador */
+const APP_VERSION = "1.3", APP_DATE = "12/11/2026";
+const STORE_KEY = "vocabulario-gbs-v2", OLD_KEY = "vocabulario-gbs-v1";
+const newData = () => ({terms:{}, streak:{last:"", count:0}, level:"basic", xp:0, xpDays:{}, sent:null, time:{total:0, days:{}}, answers:0, secs:0});
+let STORE = {profiles:{}, current:null};
+try { const raw = localStorage.getItem(STORE_KEY); if (raw) STORE = Object.assign(STORE, JSON.parse(raw)); } catch(e) {}
+let legacy = null;
+try { const raw = localStorage.getItem(OLD_KEY); if (raw) legacy = JSON.parse(raw); } catch(e) {}
+let S = newData();
+function save(){
+  if (STORE.current && STORE.profiles[STORE.current]) STORE.profiles[STORE.current].data = S;
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(STORE)); } catch(e) {}
+}
+let CAN_STORE = false;
+try { localStorage.setItem("__t", "1"); localStorage.removeItem("__t"); CAN_STORE = true; } catch(e) {}
+const storeWarn = () => CAN_STORE ? "" : `<p class="warn" role="alert">Aquí no se puede guardar tu avance (por ejemplo, si lo abres dentro de SharePoint o Teams). Descarga el archivo y ábrelo con doble clic en Chrome o Edge.</p>`;
+function hashStr(s){ let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0; return h.toString(36); }
+const pinHash = (name, pin) => hashStr(RANKING.SALT + "|" + name.trim().toLowerCase() + "|" + pin);
+function loadProfile(id){
+  STORE.current = id;
+  S = Object.assign(newData(), STORE.profiles[id].data || {});
+  S.time = Object.assign({total:0, days:{}}, S.time || {});
+  save();
+}
+const st = t => (S.terms[t] ||= {box:0, wrong:0, seen:0});
+const mastered = t => (S.terms[t]?.box || 0) >= 3;
+function dayStr(d){ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function touchStreak(){
+  const today = dayStr(new Date());
+  if (S.streak.last === today) return;
+  const y = new Date(); y.setDate(y.getDate()-1);
+  S.streak.count = (S.streak.last === dayStr(y)) ? S.streak.count + 1 : 1;
+  S.streak.last = today;
+}
+function currentStreak(){
+  const y = new Date(); y.setDate(y.getDate()-1);
+  return (S.streak.last === dayStr(new Date()) || S.streak.last === dayStr(y)) ? S.streak.count : 0;
+}
+
+/* ---------- Avance transparente ---------- */
+const boxOf = t => Math.min(S.terms[t]?.box || 0, 3);
+const progressPct = list => list.length ? Math.round(100 * list.reduce((a, x) => a + boxOf(x.t), 0) / (3 * list.length)) : 0;
+const isPending = x => { const s = S.terms[x.t]; if (!s) return false; return s.pend ?? ((s.wrong || 0) > 0 && (s.box || 0) < 3); };
+const dots = t => { const b = boxOf(t); return `<span class="dots" aria-label="${b} de 3 aciertos">${"●".repeat(b)}${"○".repeat(3 - b)}</span>`; };
+
+/* ---------- Tiempos estimados ---------- */
+const pace = () => (S.answers || 0) >= 5 ? Math.min(60, Math.max(6, S.secs / S.answers)) : 15;   // seg por pregunta (incluye leer la explicación), entre 6 y 60
+const repsLeft = list => list.reduce((a, x) => a + Math.max(0, 3 - (S.terms[x.t]?.box || 0)), 0);
+const estSec = list => repsLeft(list) * pace() * 1.25;               // +25% por respuestas falladas
+function fmtTime(sec, est){
+  const m = Math.round(sec / 60);
+  if (m < 1) return est ? "1 min" : "menos de 1 min";
+  if (m < 60) return m + " min";
+  return Math.floor(m / 60) + " h " + (m % 60 ? (m % 60) + " min" : "");
+}
+const lessonSec = n => n * pace();
+
+/* ---------- Ranking ---------- */
+function rankingData(){
+  const xp = S.xp || 0;
+  const dom = TERMS.filter(x => mastered(x.t)).length;
+  const racha = currentStreak();
+  const min = Math.round((S.time.total || 0) / 60);
+  return {xp, dom, racha, min, sem: weekXP()};
+}
+function weekXP(){
+  const d = new Date(); const dow = (d.getDay() + 6) % 7;   // 0 = lunes
+  let sum = 0;
+  for (let i = 0; i <= dow; i++){ const x = new Date(d); x.setDate(d.getDate() - i); sum += (S.xpDays || {})[dayStr(x)] || 0; }
+  return sum;
+}
+const unsentXP = () => (S.xp || 0) - (S.sent ? S.sent.xp : 0);
+function sendScore(){
+  window.open(rankingUrl(), "_blank", "noopener");
+  S.sent = {xp: S.xp || 0, at: new Date().toISOString()}; save();
+}
+function fmtWhen(iso){
+  const d = new Date(iso);
+  return d.toLocaleDateString("es-PE", {day:"2-digit", month:"2-digit"}) + " " + d.toLocaleTimeString("es-PE", {hour:"2-digit", minute:"2-digit"});
+}
+function rankingUrl(){
+  const d = rankingData(), e = encodeURIComponent;
+  return RANKING.FORM_URL + "&" + RANKING.Q_XP + "=" + e(d.xp) + "&" + RANKING.Q_DOMINADOS + "=" + e(d.dom)
+    + "&" + RANKING.Q_RACHA + "=" + e(d.racha) + "&" + RANKING.Q_MINUTOS + "=" + e(d.min)
+    + (RANKING.Q_XP_SEMANA ? "&" + RANKING.Q_XP_SEMANA + "=" + e(d.sem) : "");
+}
+
+/* ---------- Utilidades ---------- */
+const $app = document.getElementById("app");
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const shuffle = a => { a = a.slice(); for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+const reEsc = s => s.replace(/[.*+?^${}()|[\]\\\/]/g, "\\$&");
+function termRegex(t){ return new RegExp("(^|[^\\wÀ-ÿ])(" + reEsc(t) + ")(?=$|[^\\wÀ-ÿ])", "i"); }
+function hasEnglish(x){ return x.f && x.f.toLowerCase() !== x.t.toLowerCase(); }
+const canSpeak = "speechSynthesis" in window;
+let enVoice = null;
+function pickVoice(){
+  try {
+    const vs = speechSynthesis.getVoices();
+    enVoice = vs.find(v => v.lang === "en-US" && /natural|online|google/i.test(v.name)) || vs.find(v => v.lang === "en-US") || vs.find(v => /^en/i.test(v.lang)) || null;
+  } catch(e) {}
+}
+if (canSpeak){ pickVoice(); try { speechSynthesis.onvoiceschanged = pickVoice; } catch(e) {} }
+function speak(text, rate){
+  if (!canSpeak || !text) return;
+  try {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "en-US"; if (enVoice) u.voice = enVoice; u.rate = rate || 0.95;
+    speechSynthesis.speak(u);
+  } catch(e) {}
+}
+
+/* ---------- Preguntas ---------- */
+function pickDistractors(term, pool, valueOf, avoidSimilar, sentence){
+  const used = new Set([valueOf(term).toLowerCase()]);
+  const out = [];
+  const tryFrom = list => {
+    for (const x of shuffle(list)){
+      if (out.length >= 3) break;
+      if (x === term || !valueOf(x)) continue;
+      if (avoidSimilar && isSimilar(term, x)) continue;
+      if (sentence && termRegex(x.t).test(sentence)) continue;
+      const v = valueOf(x).toLowerCase();
+      if (used.has(v)) continue;
+      used.add(v); out.push(x);
+    }
+  };
+  tryFrom(pool.length >= 4 ? pool : TERMS.filter(x => x.u === term.u));
+  if (out.length < 3) tryFrom(TERMS);
+  return out;
+}
+
+function makeQuestion(term){
+  const unitPool = TERMS.filter(x => x.u === term.u);
+  const types = ["meaning","meaning","reverse"];
+  if (termRegex(term.t).test(term.e)) types.push("fill");
+  if (hasEnglish(term)) types.push("expand");
+  if (term.en && termRegex(term.t).test(term.en[0])){
+    types.push("enfill","enfill");
+    if (canSpeak) types.push("listen","listen");
+  }
+  if (hasEnglish(term)) types.push("en2es","en2es");
+  if (term.s) types.push("situ","situ");
+  const type = types[Math.floor(Math.random()*types.length)];
+  let prompt, show, valueOf, avoidSimilar = false, pool = unitPool;
+  if (type === "listen"){ prompt = "Escucha la frase y elige el término que se menciona"; show = {kind:"listen", text:term.en[0]}; valueOf = x => x.t; avoidSimilar = true; }
+  else if (type === "enfill"){ prompt = "Completa la frase en inglés"; show = {kind:"enfill", text:term.en[0]}; valueOf = x => x.t; avoidSimilar = true; }
+  else if (type === "en2es"){ prompt = "¿Qué significa en español?"; show = {kind:"en", text:term.f}; valueOf = x => x.m; }
+  else if (type === "situ"){ prompt = "Situación: ¿qué término aplica?"; show = {kind:"situ", text:term.s}; valueOf = x => x.t; }
+  else if (type === "meaning"){ prompt = "¿Qué significa?"; show = {kind:"term", text:term.t}; valueOf = x => x.m; }
+  else if (type === "reverse"){ prompt = "¿Qué término corresponde a esta definición?"; show = {kind:"def", text:term.m}; valueOf = x => x.t; }
+  else if (type === "expand"){ prompt = "¿Cuál es la forma completa en inglés?"; show = {kind:"term", text:term.t}; valueOf = x => hasEnglish(x) ? x.f : ""; pool = unitPool.filter(hasEnglish); }
+  else { prompt = "Completa la frase: ¿qué término encaja mejor?"; show = {kind:"fill", text:term.e}; valueOf = x => x.t; avoidSimilar = true; }
+  const sentence = (show.kind === "fill" || show.kind === "enfill" || show.kind === "listen") ? show.text : null;
+  const opts = shuffle([term, ...pickDistractors(term, pool, valueOf, avoidSimilar, sentence)]).map(x => ({label:valueOf(x), correct:x === term}));
+  return {term, type, prompt, show, opts};
+}
+
+/* ---------- Pantallas ---------- */
+let L = null; // lección en curso
+
+function home(){
+  L = null;
+  const LT = levelTerms();
+  const total = LT.length;
+  const done = LT.filter(x => mastered(x.t)).length;
+  const toReview = LT.filter(isPending).length;
+  const streak = currentStreak();
+  const nBasic = TERMS.filter(x => x.basic).length;
+  const prof = STORE.profiles[STORE.current];
+  const today = S.time.days[dayStr(new Date())] || 0;
+  const left = estSec(LT);
+  let h = `<div class="who"><span>Hola, <strong>${esc(prof.name)}</strong></span><button class="linkish" data-act="switch">Cambiar de perfil</button></div>
+  <header class="hero">
+    <h1>Vocabulario GBS</h1>
+    <p class="muted">Practica las siglas y términos en inglés del plan de Business Excellence: qué significan, qué quieren decir en español, para qué se usan y cómo suenan en una conversación del equipo.</p>
+    <div class="level" role="group" aria-label="Nivel">
+      <button data-level="basic" aria-pressed="${S.level !== "full"}">Básico (${nBasic})</button>
+      <button data-level="full" aria-pressed="${S.level === "full"}">Completo (${TERMS.length})</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>${progressPct(LT)}%</b><span>avance del nivel</span></div>
+      <div class="stat"><b>${done} / ${total}</b><span>términos dominados</span></div>
+      <div class="stat"><b>${streak}</b><span>${streak === 1 ? "día seguido practicando" : "días seguidos practicando"}</span></div>
+      <div class="stat xp"><b>${S.xp || 0}</b><span>XP total</span></div>
+      <div class="stat xp"><b>${weekXP()}</b><span>XP esta semana</span></div>
+    </div>
+    <div class="stats times">
+      <div class="stat"><b>${fmtTime(today)}</b><span>practicado hoy</span></div>
+      <div class="stat"><b>${fmtTime(S.time.total || 0)}</b><span>practicado en total</span></div>
+      <div class="stat"><b>${left ? "~" + fmtTime(left, true) : "¡Listo!"}</b><span>${left ? "para dominar el nivel" : "nivel dominado"}</span></div>
+    </div>
+  </header>
+  <div class="row actions">
+    <button class="btn" data-act="mix">Práctica mixta</button>
+    <button class="btn ghost" data-act="review" ${toReview ? "" : "disabled"}>Repasar mis errores${toReview ? " (" + toReview + ")" : ""}</button>
+    <button class="btn ghost" data-act="glossary">Ver glosario</button>
+  </div>
+  <section class="rank">
+    <div><h3>Ranking del equipo</h3><p class="muted">Envía tu XP total y semanal, términos dominados, racha y minutos. Se abre un formulario de Alicorp con tus datos ya llenados; solo dale Enviar.</p>
+      <p class="sent">${S.sent ? "Último envío: " + fmtWhen(S.sent.at) + " (" + S.sent.xp + " XP)." : "Todavía no has enviado tu puntaje."}${unsentXP() > 0 ? ` <strong>Tienes ${unsentXP()} XP sin enviar.</strong>` : ""}</p></div>
+    <button class="btn ${unsentXP() > 0 ? "" : "ghost"}" data-act="rank">Enviar mi puntaje</button>
+  </section>
+  <h2 style="margin-bottom:12px">Temas</h2>
+  <div class="units">`;
+  for (const u of UNITS){
+    const list = LT.filter(x => x.u === u.id);
+    if (!list.length) continue;
+    const m = list.filter(x => mastered(x.t)).length;
+    const pct = progressPct(list);
+    h += `<button class="unit" data-unit="${u.id}" aria-label="Practicar ${esc(u.name)}">
+      <div><h3>${esc(u.name)}</h3><small>${esc(u.desc)} · ${m} de ${list.length} dominados · ${pct === 100 ? "completado" : "lección ~" + fmtTime(lessonSec(Math.min(10, list.length)), true) + " · faltan ~" + fmtTime(estSec(list), true)}</small></div>
+      <span class="pct">${pct}%</span>
+      <span class="bar"><i style="width:${pct}%"></i></span>
+    </button>`;
+  }
+  h += `</div>
+  <footer><span><strong>Cómo se mide:</strong> cada término necesita 3 aciertos seguidos (●●●) para quedar dominado; si lo fallas vuelve a ○○○. El avance suma cada acierto, así que se mueve desde la primera lección. Un error sale de “Repasar mis errores” apenas lo aciertas. Cada acierto da 10 XP. Tu progreso se guarda en este navegador; expórtalo si vas a cambiar de PC o limpiar el navegador.</span>
+  <span class="foot-actions">
+    <button class="linkish" data-act="export">Exportar progreso</button>
+    <button class="linkish" data-act="import">Importar progreso</button>
+    <button class="linkish" data-act="reset">Reiniciar mi progreso</button>
+    <span class="ver">Versión ${APP_VERSION} · ${APP_DATE}</span>
+    <input type="file" accept=".json,application/json" id="importFile" hidden>
+  </span></footer>
+  <p class="toast" id="toast" role="status"></p>`;
+  $app.innerHTML = h;
+  $app.querySelectorAll("[data-level]").forEach(b => b.onclick = () => { S.level = b.dataset.level; save(); home(); });
+  $app.querySelectorAll("[data-unit]").forEach(b => b.onclick = () => startLesson(LT.filter(x => x.u === b.dataset.unit)));
+  $app.querySelector('[data-act="mix"]').onclick = () => startLesson(LT);
+  $app.querySelector('[data-act="review"]').onclick = () => startLesson(LT.filter(isPending));
+  $app.querySelector('[data-act="glossary"]').onclick = glossary;
+  $app.querySelector('[data-act="reset"]').onclick = () => {
+    if (confirm("¿Borrar todo el progreso de " + prof.name + "? No se puede deshacer.")){ const lv = S.level; S = newData(); S.level = lv; save(); home(); }
+  };
+  $app.querySelector('[data-act="switch"]').onclick = () => { STORE.current = null; save(); profiles(); };
+  $app.querySelector('[data-act="rank"]').onclick = () => {
+    sendScore(); home();
+    document.getElementById("toast").textContent = "Se abrió el formulario en otra pestaña: revisa tus datos y dale Enviar.";
+  };
+  $app.querySelector('[data-act="export"]').onclick = () => {
+    const d = rankingData();
+    const payload = {app:"vocabulario-gbs", version:2, exported:new Date().toISOString(),
+      perfil:{nombre:prof.name},
+      appVersion:APP_VERSION,
+      resumen:{nivel:S.level === "full" ? "completo" : "basico", xp:d.xp, xpSemana:d.sem, dominados:d.dom, racha:d.racha, minutos:d.min},
+      data:S};
+    const blob = new Blob([JSON.stringify(payload, null, 2)], {type:"application/json"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "progreso_vocabulario_gbs_" + prof.name.trim().replace(/[^\wÀ-ÿ-]+/g, "_") + "_" + dayStr(new Date()) + ".json";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  };
+  const fileInput = $app.querySelector("#importFile");
+  $app.querySelector('[data-act="import"]').onclick = () => fileInput.click();
+  fileInput.onchange = () => {
+    const f = fileInput.files[0]; if (!f) return;
+    const r = new FileReader();
+    r.onload = () => {
+      try {
+        const obj = JSON.parse(r.result);
+        if (obj.app !== "vocabulario-gbs" || !obj.data || typeof obj.data.terms !== "object") throw new Error();
+        S = Object.assign(newData(), obj.data);
+        S.time = Object.assign({total:0, days:{}}, S.time || {});
+        save(); home();
+        document.getElementById("toast").textContent = "Progreso importado.";
+      } catch(e) {
+        document.getElementById("toast").textContent = "";
+        alert("Ese archivo no es un progreso exportado desde esta app. Elige el .json que descargaste con Exportar progreso.");
+      }
+    };
+    r.readAsText(f);
+  };
+  window.scrollTo(0,0);
+}
+
+function startLesson(pool, size){
+  size = Math.min(size || 10, pool.length);
+  const ordered = shuffle(pool).sort((a,b) => (S.terms[a.t]?.box||0) - (S.terms[b.t]?.box||0));
+  const picked = shuffle(ordered.slice(0, size));
+  L = {qs: picked.map(makeQuestion), i:0, right:0, missed:[], answered:false};
+  question();
+}
+
+function question(){
+  const q = L.qs[L.i];
+  L.answered = false;
+  L.t0 = Date.now();
+  let showHtml;
+  if (q.show.kind === "term") showHtml = `<div class="term">${esc(q.show.text)}</div>`;
+  else if (q.show.kind === "def") showHtml = `<div class="def">${esc(q.show.text)}</div>`;
+  else if (q.show.kind === "en") showHtml = `<span class="en-tag">En inglés${canSpeak ? ` <button class="speak" data-act="say-q" aria-label="Escuchar pronunciación">🔊</button>` : ""}</span><div class="def en-q" lang="en">${esc(q.show.text)}</div>`;
+  else if (q.show.kind === "situ") showHtml = `<div class="situ">${esc(q.show.text)}</div>`;
+  else if (q.show.kind === "listen") showHtml = `<div class="listen">
+      <button class="play" data-act="play" aria-label="Reproducir la frase en inglés">🔊</button>
+      <button class="slow" data-act="slow">Repetir más lento</button></div>`;
+  else if (q.show.kind === "enfill") showHtml = `<span class="en-tag" lang="es">En inglés</span><div class="sentence" lang="en">“${esc(q.show.text).replace(termRegex(esc(q.term.t)), (m,p1) => p1 + '<span class="blank" aria-label="espacio en blanco"></span>')}”</div>`;
+  else showHtml = `<div class="sentence">“${esc(q.show.text).replace(termRegex(esc(q.term.t)), (m,p1) => p1 + '<span class="blank" aria-label="espacio en blanco"></span>')}”</div>`;
+  const pct = Math.round(100 * L.i / L.qs.length);
+  let h = `<div class="top">
+      <button class="close" aria-label="Salir de la práctica" data-act="exit">×</button>
+      <div class="progress" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></div>
+      <span class="count">${L.i+1} / ${L.qs.length}</span>
+    </div>
+    <p class="qtype">${esc(q.prompt)}</p>
+    <div class="sign">${showHtml}</div>
+    <div class="opts" role="radiogroup" aria-label="Opciones">`;
+  q.opts.forEach((o, k) => {
+    h += `<button class="opt" role="radio" aria-checked="false" data-k="${k}"><span class="key">${k+1}</span><span class="radio"></span><span>${esc(o.label)}</span></button>`;
+  });
+  h += `</div><div id="fb"></div>`;
+  $app.innerHTML = h;
+  $app.querySelector('[data-act="exit"]').onclick = () => { if (L.i === 0 || confirm("¿Salir? Lo que ya respondiste queda guardado.")){ if (L.answered) logTime(); home(); } };
+  $app.querySelectorAll(".opt").forEach(b => b.onclick = () => answer(+b.dataset.k));
+  const sq = $app.querySelector('[data-act="say-q"]'); if (sq) sq.onclick = () => speak(q.show.text);
+  if (q.show.kind === "listen"){
+    $app.querySelector('[data-act="play"]').onclick = () => speak(q.show.text);
+    $app.querySelector('[data-act="slow"]').onclick = () => speak(q.show.text, 0.7);
+    setTimeout(() => speak(q.show.text), 250);
+  }
+  $app.querySelector(".opt").focus({preventScroll:true});
+  window.scrollTo(0,0);
+}
+
+function answer(k){
+  if (L.answered) return;
+  L.answered = true;
+  const q = L.qs[L.i], o = q.opts[k], ok = o.correct, t = q.term, s = st(t.t);
+  s.seen++;
+  if (ok){ s.box = Math.min(s.box + 1, 3); s.pend = false; L.right++; S.xp = (S.xp || 0) + 10; L.xp = (L.xp || 0) + 10; S.xpDays = S.xpDays || {}; const dd = dayStr(new Date()); S.xpDays[dd] = (S.xpDays[dd] || 0) + 10; }
+  else { s.box = 0; s.wrong++; s.pend = true; L.missed.push(t); }
+  touchStreak(); save();
+
+  $app.querySelectorAll(".opt").forEach((b, j) => {
+    b.disabled = true;
+    if (q.opts[j].correct) b.classList.add("right");
+    if (j === k){ b.classList.add("chosen"); b.setAttribute("aria-checked","true"); if (!ok) b.classList.add("wrong"); }
+  });
+
+  const convo = esc(t.e).replace(termRegex(esc(t.t)), (m,p1,p2) => p1 + "<strong>" + p2 + "</strong>");
+  const english = hasEnglish(t) ? ` <span class="muted">(${esc(t.f)})</span>` : "";
+  const speakBtn = canSpeak && hasEnglish(t) ? `<button class="speak" data-act="speak" aria-label="Escuchar pronunciación en inglés">🔊 Escuchar</button>` : "";
+  const last = L.i === L.qs.length - 1;
+  document.getElementById("fb").innerHTML = `<section class="feedback ${ok ? "ok" : "bad"}" aria-live="polite">
+      <h3>${ok ? "¡Correcto!" : "No era esa"}</h3>
+      <p><strong>${esc(t.t)}</strong>${english}${speakBtn}</p>
+      <p class="tprog">${dots(t.t)} ${s.box >= 3 ? "¡Término dominado!" : ok ? s.box + " de 3 aciertos seguidos para dominarlo" : "Vuelve a 0 de 3: necesitas 3 aciertos seguidos para dominarlo"}</p>
+      <dl>
+        <dt>Significado</dt><dd>${esc(t.m)}</dd>
+        ${t.p ? `<dt>En palabras simples</dt><dd>${esc(t.p)}</dd>` : ""}
+        <dt>En el GBS</dt><dd>${esc(t.c)}</dd>
+        <dt>En una conversación</dt><dd class="convo">“${convo}”</dd>
+        ${t.en ? `<dt>En inglés${canSpeak ? ` <button class="speak" data-act="speak-en" aria-label="Escuchar la frase en inglés">🔊</button>` : ""}</dt>
+        <dd><div class="en" lang="en">“${esc(t.en[0]).replace(termRegex(esc(t.t)), (m,p1,p2) => p1 + "<strong>" + p2 + "</strong>")}”</div><div class="tr">${esc(t.en[1])}</div></dd>` : ""}
+      </dl>
+    </section>
+    <button class="btn next" data-act="next">${last ? "Ver resultado" : "Siguiente"}</button>`;
+  const sp = $app.querySelector('[data-act="speak"]'); if (sp) sp.onclick = () => speak(t.f);
+  const spe = $app.querySelector('[data-act="speak-en"]'); if (spe) spe.onclick = () => speak(t.en[0]);
+  const nx = $app.querySelector('[data-act="next"]');
+  nx.onclick = next; nx.focus({preventScroll:true});
+  document.getElementById("fb").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"nearest"});
+}
+
+function logTime(){
+  if (!L || !L.t0) return;
+  const sec = Math.min((Date.now() - L.t0) / 1000, 90);
+  const d = dayStr(new Date());
+  S.time.total += sec; S.time.days[d] = (S.time.days[d] || 0) + sec;
+  S.answers = (S.answers || 0) + 1; S.secs = (S.secs || 0) + sec;
+  L.t0 = 0; save();
+}
+function next(){ logTime(); L.i++; if (L.i < L.qs.length) question(); else result(); }
+
+function result(){
+  const n = L.qs.length, r = L.right;
+  const msg = r === n ? "Perfecto, todas bien." : r >= n*0.7 ? "Bien ahí, ya casi." : "Sigue practicando, los fallados vuelven a salir más seguido.";
+  let h = `<section class="result">
+    <h2>Resultado</h2>
+    <div class="score">${r} / ${n}</div>
+    <p class="muted">${msg}</p>`;
+  if (L.missed.length){
+    h += `<div class="missed">` + L.missed.map(t => `<div><strong>${esc(t.t)}</strong>${hasEnglish(t) ? ` <span class="muted">(${esc(t.f)})</span>` : ""}<br>${esc(t.m)}</div>`).join("") + `</div>`;
+  }
+  if (unsentXP() > 0) h += `<div class="nudge"><p>Ganaste <strong>${L.xp || 0} XP</strong> en esta lección. Tienes <strong>${unsentXP()} XP</strong> sin enviar al ranking.</p>
+      <button class="btn ghost" data-act="rank">Enviar mi puntaje</button></div>`;
+  h += `<div class="row">
+      ${L.missed.length ? `<button class="btn" data-act="retry">Practicar los que fallé</button>` : ""}
+      <button class="btn ${L.missed.length ? "ghost" : ""}" data-act="home">Volver al inicio</button>
+    </div></section>`;
+  $app.innerHTML = h;
+  const missed = L.missed.slice();
+  const rb = $app.querySelector('[data-act="retry"]'); if (rb) rb.onclick = () => startLesson(missed);
+  const sb = $app.querySelector('[data-act="rank"]');
+  if (sb) sb.onclick = () => { sendScore(); sb.closest(".nudge").innerHTML = "<p>Se abrió el formulario en otra pestaña: revisa tus datos y dale Enviar.</p>"; };
+  $app.querySelector('[data-act="home"]').onclick = home;
+  ($app.querySelector(".btn")).focus({preventScroll:true});
+  window.scrollTo(0,0);
+}
+
+function glossary(){
+  L = null;
+  $app.innerHTML = `<div class="top"><button class="close" aria-label="Volver al inicio" data-act="home">×</button><h2 style="flex:1">Glosario</h2></div>
+    <input class="search" type="search" placeholder="Buscar sigla o palabra…" aria-label="Buscar en el glosario">
+    <div id="glist"></div>`;
+  const draw = q => {
+    q = q.trim().toLowerCase();
+    let h = "";
+    for (const u of UNITS){
+      const list = TERMS.filter(x => x.u === u.id && (!q || (x.t + " " + x.f + " " + x.m + " " + x.p + " " + x.c + " " + (x.en ? x.en.join(" ") : "")).toLowerCase().includes(q)));
+      if (!list.length) continue;
+      h += `<section class="gunit"><h3>${esc(u.name)}</h3>` + list.map(x => `<div class="gterm">
+          ${dots(x.t)} <b>${esc(x.t)}</b>${hasEnglish(x) ? ` <span class="f">${esc(x.f)}</span>` : ""}
+          ${canSpeak && hasEnglish(x) ? `<button class="speak" data-say="${esc(x.f)}" aria-label="Escuchar ${esc(x.f)}">🔊</button>` : ""}
+          <p>${esc(x.m)}. ${esc(x.c)}</p>
+          ${x.p ? `<p class="simple"><strong>En palabras simples:</strong> ${esc(x.p)}</p>` : ""}
+          <p class="convo">“${esc(x.e)}”</p>
+          ${x.en ? `<p class="en" lang="en">“${esc(x.en[0])}” ${canSpeak ? `<button class="speak" data-say="${esc(x.en[0])}" aria-label="Escuchar la frase en inglés">🔊</button>` : ""}</p><p class="tr">${esc(x.en[1])}</p>` : ""}</div>`).join("") + `</section>`;
+    }
+    const gl = document.getElementById("glist");
+    gl.innerHTML = h || `<p class="muted">No hay términos que coincidan con “${esc(q)}”. Prueba con otra sigla o palabra.</p>`;
+    gl.querySelectorAll("[data-say]").forEach(b => b.onclick = () => speak(b.dataset.say));
+  };
+  draw("");
+  const input = $app.querySelector(".search");
+  input.oninput = () => draw(input.value);
+  input.focus();
+  $app.querySelector('[data-act="home"]').onclick = home;
+  window.scrollTo(0,0);
+}
+
+/* Teclado: 1-4 para elegir, Enter para seguir */
+document.addEventListener("keydown", e => {
+  if (!L || e.target.tagName === "INPUT") return;
+  if (!L.answered && /^[1-4]$/.test(e.key)){ const k = +e.key - 1; if (L.qs[L.i].opts[k]) { e.preventDefault(); answer(k); } }
+  else if (L.answered && e.key === "Enter" && document.activeElement?.dataset.act !== "next"){ e.preventDefault(); next(); }
+});
+
+/* ---------- Perfiles ---------- */
+function profiles(msg){
+  L = null;
+  const ids = Object.keys(STORE.profiles).sort((a,b) => STORE.profiles[a].name.localeCompare(STORE.profiles[b].name, "es"));
+  let h = `<header class="hero"><h1>Vocabulario GBS</h1>
+    <p class="muted">Cada persona tiene su propio perfil con PIN. El avance se guarda en este navegador, separado por perfil.</p>${storeWarn()}</header>`;
+  if (ids.length){
+    h += `<h2 style="margin-bottom:12px">¿Quién eres?</h2><div class="plist">` +
+      ids.map(id => `<button class="unit" data-pid="${id}"><div><h3>${esc(STORE.profiles[id].name)}</h3>
+        <small>${(STORE.profiles[id].data?.xp || 0)} XP${STORE.profiles[id].pin ? " · 🔒 con PIN" : ""}</small></div><span class="pct">Entrar</span></button>`).join("") +
+      `</div><h2 style="margin:30px 0 4px">Crear un perfil nuevo</h2>`;
+  } else {
+    h += `<h2 style="margin-bottom:4px">Crea tu perfil para empezar</h2>`;
+  }
+  h += `<div class="pform" id="newProfile">
+      <label>Tu nombre<input class="field" name="nombre" autocomplete="name" maxlength="40" required></label>
+      <label>PIN de 4 dígitos <span class="opt-tag">(opcional)</span><input class="field" name="pin" type="password" inputmode="numeric" maxlength="4" autocomplete="new-password" required></label>
+      <label>Repite el PIN <span class="opt-tag">(si pusiste uno)</span><input class="field" name="pin2" type="password" inputmode="numeric" maxlength="4" autocomplete="new-password" required></label>
+      <p class="err" role="alert">${msg ? esc(msg) : ""}</p>
+      <button class="btn" type="button" data-act="create">Crear perfil</button>
+    </div>
+    <footer><span class="ver">Versión ${APP_VERSION} · ${APP_DATE}</span><span>El PIN es opcional: úsalo solo si compartes la PC con otras personas, para que nadie entre a tu perfil por error. Si lo olvidas, no se puede recuperar: crea un perfil nuevo.</span></footer>`;
+  $app.innerHTML = h;
+  $app.querySelectorAll("[data-pid]").forEach(b => b.onclick = () => STORE.profiles[b.dataset.pid].pin ? pinScreen(b.dataset.pid) : (loadProfile(b.dataset.pid), home()));
+  const f = document.getElementById("newProfile");
+  const inp = n => f.querySelector('[name="' + n + '"]');
+  const create = () => {
+    const name = inp("nombre").value.trim(), pin = inp("pin").value.trim(), pin2 = inp("pin2").value.trim();
+    const err = t => { f.querySelector(".err").textContent = t; };
+    if (name.length < 2) return err("Escribe tu nombre.");
+    if (Object.values(STORE.profiles).some(x => x.name.trim().toLowerCase() === name.toLowerCase())) return err("Ya existe un perfil con ese nombre.");
+    if (pin || pin2){
+      if (!/^\d{4}$/.test(pin)) return err("El PIN debe tener 4 números, o déjalo vacío.");
+      if (pin !== pin2) return err("Los PIN no coinciden.");
+    }
+    const id = "p" + Date.now().toString(36);
+    let data = newData();
+    if (legacy && !Object.keys(STORE.profiles).length){          // progreso de la versión anterior pasa al primer perfil
+      data = Object.assign(newData(), legacy); data.time = newData().time;
+      try { localStorage.removeItem(OLD_KEY); } catch(e) {}
+      legacy = null;
+    }
+    STORE.profiles[id] = {name, pin: pin ? pinHash(name, pin) : null, created: new Date().toISOString(), data};
+    loadProfile(id); home();
+  };
+  f.querySelector('[data-act="create"]').onclick = create;
+  f.querySelectorAll("input").forEach(i => i.onkeydown = e => { if (e.key === "Enter"){ e.preventDefault(); create(); } });
+  (ids.length ? $app.querySelector("[data-pid]") : inp("nombre")).focus({preventScroll:true});
+  window.scrollTo(0,0);
+}
+
+function pinScreen(id){
+  const prof = STORE.profiles[id];
+  $app.innerHTML = `<div class="top"><button class="close" aria-label="Volver" data-act="back">×</button><h2 style="flex:1">Hola, ${esc(prof.name)}</h2></div>
+    <div class="pform" id="pinForm">
+      <label>Ingresa tu PIN<input class="field" name="pin" type="password" inputmode="numeric" maxlength="4" autocomplete="current-password"></label>
+      <p class="err" role="alert"></p>
+      <button class="btn" type="button" data-act="enter">Entrar</button>
+    </div>`;
+  const f = document.getElementById("pinForm"), pinIn = f.querySelector('[name="pin"]');
+  pinIn.focus();
+  $app.querySelector('[data-act="back"]').onclick = () => profiles();
+  const enter = () => {
+    if (pinHash(prof.name, pinIn.value.trim()) !== prof.pin){ f.querySelector(".err").textContent = "PIN incorrecto."; pinIn.select(); return; }
+    loadProfile(id); home();
+  };
+  f.querySelector('[data-act="enter"]').onclick = enter;
+  pinIn.onkeydown = e => { if (e.key === "Enter"){ e.preventDefault(); enter(); } };
+}
+
+profiles();
+</script>
+</body>
+</html>
